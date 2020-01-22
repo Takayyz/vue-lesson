@@ -1,8 +1,22 @@
 <template>
   <div>
-    <h1>{{message}}</h1>
+    <h1
+      v-html="message"
+      :class="classObj"
+    ></h1>
     <hr>
-    <child-component></child-component>
+    <child-component
+      v-show="isShow"
+    ></child-component>
+    <hr>
+    <p v-if="id === 1">1</p>
+   <template v-else-if="id === 2">
+     <p>2-1</p>
+     <p>2-2</p>
+     <p>2-3</p>
+   </template>
+    <p v-else>other</p>
+    <hr>
   </div>
 </template>
 
@@ -12,7 +26,12 @@ import ChildComponent from 'Components/ChildComponent';
 export default {
   data() {
     return {
-      message: 'Hello my name is Taka',
+      message: '<span>Hello my name is Taka</span>',
+      isShow: true,
+      id: 2,
+      classObj: {
+        'is-green': true,
+      },
     }
   },
   components: {
@@ -22,7 +41,7 @@ export default {
 </script>
 
 <style scoped>
-  h1 {
+  .is-green {
     color: green;
   }
   hr {
