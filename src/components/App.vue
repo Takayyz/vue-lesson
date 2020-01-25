@@ -7,7 +7,19 @@
     <hr>
     <child-component
       v-show="isShow"
-    ></child-component>
+    >
+      <template v-slot:head>
+        <p>head slot</p>
+      </template>
+      <template v-slot:default>
+        <p>main slot</p>
+        <p>main slot2</p>
+      </template>
+      <template v-slot:foot>
+        <p>foot slot</p>
+      </template>
+      <!-- <span>こっちは勝手に追加</span> -->
+    </child-component>
     <hr>
     <p v-if="id === 1">1</p>
    <template v-else-if="id === 2">
@@ -24,7 +36,9 @@
         </li>
       </template> -->
       <template v-for="item in items">
-        <child-component :key="item.id"></child-component>
+        <child-component :key="item.id">
+          <span>slot content</span>
+        </child-component>
       </template>
       <hr>
       <button @click="count++">Add to count</button>
