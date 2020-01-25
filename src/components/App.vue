@@ -41,7 +41,7 @@
         </child-component>
       </template>
       <hr>
-      <button @click="count++">Add to count</button>
+      <button @click="incrementCount">Add to count</button>
       <p>{{ count }}回目！！</p>
     </ul>
   </div>
@@ -73,7 +73,12 @@ export default {
           id: this.$uuid.v4(),
           title: '3番目のリスト',
         },
-      ]
+      ],
+    }
+  },
+  methods: {
+    incrementCount(){
+      this.count++;
     }
   },
   components: {
