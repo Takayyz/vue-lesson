@@ -17,6 +17,19 @@
    </template>
     <p v-else>other</p>
     <hr>
+    <ul>
+      <!-- <template v-for="item in items">
+        <li :key="item.id">
+          {{ item.title }}
+        </li>
+      </template> -->
+      <template v-for="item in items">
+        <child-component :key="item.id"></child-component>
+      </template>
+      <hr>
+      <button @click="count++">Add to count</button>
+      <p>{{ count }}回目！！</p>
+    </ul>
   </div>
 </template>
 
@@ -29,9 +42,24 @@ export default {
       message: '<span>Hello my name is Taka</span>',
       isShow: true,
       id: 2,
+      count: 0,
       classObj: {
         'is-green': true,
       },
+      items: [
+        {
+          id: this.$uuid.v4(),
+          title: '1番目のリスト',
+        },
+        {
+          id: this.$uuid.v4(),
+          title: '2番目のリスト',
+        },
+        {
+          id: this.$uuid.v4(),
+          title: '3番目のリスト',
+        },
+      ]
     }
   },
   components: {
