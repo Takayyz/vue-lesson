@@ -43,6 +43,10 @@
       <hr>
       <button @click="incrementCount">Add to count</button>
       <p>{{ count }}回目！！</p>
+      <hr>
+      <input type="text" v-model="inputText">
+      <p>computed: {{ getUpperCaseText }}</p>
+      <p>methods: {{ showUpperCaseText() }}</p>
     </ul>
   </div>
 </template>
@@ -57,6 +61,7 @@ export default {
       isShow: true,
       id: 2,
       count: 0,
+      inputText: '',
       classObj: {
         'is-green': true,
       },
@@ -78,7 +83,20 @@ export default {
   },
   methods: {
     incrementCount(){
+      console.log('incrementCount');
       this.count++;
+    },
+    showUpperCaseText(){
+      const upperCaseText = this.inputText.toUpperCase();
+      console.log(`method: ${upperCaseText}`);
+      return upperCaseText;
+    }
+  },
+  computed: {
+    getUpperCaseText(){
+      const upperCaseText = this.inputText.toUpperCase();
+      console.log(`computed: ${upperCaseText}`);
+      return upperCaseText;
     }
   },
   components: {
