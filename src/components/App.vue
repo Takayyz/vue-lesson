@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1
+      class="main_title"
       v-html="message"
       :class="classObj"
     ></h1>
@@ -36,7 +37,10 @@
         </li>
       </template> -->
       <template v-for="item in items">
-        <child-component :key="item.id">
+        <child-component
+          :key="item.id"
+          :title="item.title"
+        >
           <span>slot content</span>
         </child-component>
       </template>
@@ -106,6 +110,9 @@ export default {
 </script>
 
 <style scoped>
+  .main_title {
+    text-align: center;
+  }
   .is-green {
     color: green;
   }
