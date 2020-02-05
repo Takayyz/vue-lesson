@@ -5,6 +5,13 @@
       v-html="message"
       :class="classObj"
     ></h1>
+    <p>{{ description }}</p>
+    <!-- <button
+      @click="addDescription"
+    >
+      add discription
+    </button> -->
+    <button @click="changeTextSize">Large</button>
     <hr>
     <child-component
       v-show="isShow"
@@ -51,6 +58,13 @@
       <input type="text" v-model="inputText">
       <p>computed: {{ getUpperCaseText }}</p>
       <p>methods: {{ showUpperCaseText() }}</p>
+      <hr>
+      <template v-for="category in categories">
+        <p :key="$uuid.v4()">
+          {{ category }}
+        </p>
+      </template>
+      <button @click="updateText">update text</button>
     </ul>
   </div>
 </template>
@@ -66,6 +80,7 @@ export default {
       id: 2,
       count: 0,
       inputText: '',
+      description: '',
       classObj: {
         'is-green': true,
       },
@@ -83,17 +98,40 @@ export default {
           title: '3番目のリスト',
         },
       ],
+      categories: ['JavaScript', 'jQuery'],
     }
   },
   methods: {
-    incrementCount(){
+    incrementCount() {
       console.log('incrementCount');
       this.count++;
     },
-    showUpperCaseText(){
+    showUpperCaseText() {
       const upperCaseText = this.inputText.toUpperCase();
       console.log(`method: ${upperCaseText}`);
       return upperCaseText;
+    },
+    addDescription() {
+      console.log('adDescription');
+      this.description = 'Vue-lesson'
+      console.log(this.description);
+    },
+    updateText() {
+      console.log('updateText');
+      // this.categories.splice(1, 1, 'Vue.js');
+
+      // スプレッド演算子パターン
+      // this.classObj = {...this.classObj, 'is-large': true}
+
+      // $setパターン
+      this.$set(this.classObj, 'is-large', true);
+
+      this.$set(this.categories, 1, 'Vue.js');
+    },
+    changeTextSize() {
+      this.classObj = Object.assign({}, this.classObj, {
+        'is-large': true,
+      });
     }
   },
   computed: {
@@ -115,6 +153,9 @@ export default {
   }
   .is-green {
     color: green;
+  }
+  .is-large {
+    font-size: 48px;
   }
   hr {
     margin: 16px 0;
