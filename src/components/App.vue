@@ -2,10 +2,10 @@
   <div>
     <h1
       class="main_title"
-      v-html="message"
+      v-html="leads.message"
       :class="classObj"
     ></h1>
-    <p>{{ description }}</p>
+    <p>{{ leads.description }}</p>
     <button
       @click="addDescription"
     >
@@ -75,12 +75,14 @@ import ChildComponent from 'Components/ChildComponent';
 export default {
   data() {
     return {
-      message: '<span>Hello my name is Taka</span>',
+      leads: {
+        message: '<span>Hello my name is Taka</span>',
+        description: '',
+      },
       isShow: true,
       id: 2,
       count: 0,
       inputText: '',
-      description: '',
       classObj: {
         'is-green': true,
       },
@@ -108,13 +110,13 @@ export default {
     },
     showUpperCaseText() {
       const upperCaseText = this.inputText.toUpperCase();
-      console.log(`method: ${upperCaseText}`);
+      // console.log(`method: ${upperCaseText}`);
       return upperCaseText;
     },
     addDescription() {
-      console.log('adDescription');
-      this.description = 'Vue-lesson'
-      console.log(this.description);
+      // console.log('adDescription');
+      this.leads.description = 'Vue-lesson'
+      // console.log(this.description);
     },
     updateText() {
       console.log('updateText');
@@ -134,10 +136,22 @@ export default {
       });
     }
   },
+  watch: {
+    inputText(value, oldValue) {
+      console.log(`value => ${value}`);
+      console.log(`oldValue => ${oldValue}`);
+    },
+    'leads.description': {
+      handler() {
+        console.log('add description');
+      },
+      deep: true,
+    }
+  },
   computed: {
     getUpperCaseText(){
       const upperCaseText = this.inputText.toUpperCase();
-      console.log(`computed: ${upperCaseText}`);
+      // console.log(`computed: ${upperCaseText}`);
       return upperCaseText;
     }
   },
