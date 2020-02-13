@@ -6,11 +6,11 @@
       :class="classObj"
     ></h1>
     <p>{{ description }}</p>
-    <!-- <button
+    <button
       @click="addDescription"
     >
       add discription
-    </button> -->
+    </button>
     <button @click="changeTextSize">Large</button>
     <hr>
     <child-component
