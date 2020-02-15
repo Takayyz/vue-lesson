@@ -59,6 +59,43 @@
       <p>computed: {{ getUpperCaseText }}</p>
       <p>methods: {{ showUpperCaseText() }}</p>
       <hr>
+      <form>
+        <div>
+          <span>名前:</span>
+          <input type="text" v-model="form.name">
+          <p>名前: {{ getInputName }}</p>
+        </div>
+        <div>
+          <span>性別:</span>
+          <label>
+            男性
+            <input type="radio" value="male" v-model="form.sex">
+          </label>
+          <label>
+            女性
+            <input type="radio" value="female" v-model="form.sex">
+          </label>
+          <p>性別: {{ getRadioValue }}</p>
+        </div>
+        <div>
+          <select v-model="form.selected">
+            <option disabled value="">--出身地を選択してください--</option>
+            <option>東京都</option>
+            <option>埼玉県</option>
+            <option>神奈川県</option>
+            <option>千葉県</option>
+            <option>山形県</option>
+          </select>
+          <p>出身地: {{ getSelectedValue }}</p>
+        </div>
+        <div>
+          <label>
+            <input type="checkbox" v-model="form.checked">
+            20歳以上です
+          </label>
+          <p>チェックボックス: {{ getCheckBoxValue }}</p>
+        </div>
+      </form>
       <template v-for="category in categories">
         <p :key="$uuid.v4()">
           {{ category }}
@@ -100,6 +137,12 @@ export default {
           title: '3番目のリスト',
         },
       ],
+      form: {
+        name: '',
+        sex: '',
+        selected: '',
+        checked: false,
+      },
       categories: ['JavaScript', 'jQuery'],
     }
   },
@@ -149,10 +192,22 @@ export default {
     }
   },
   computed: {
-    getUpperCaseText(){
+    getUpperCaseText() {
       const upperCaseText = this.inputText.toUpperCase();
       // console.log(`computed: ${upperCaseText}`);
       return upperCaseText;
+    },
+    getInputName() {
+      return this.form.name;
+    },
+    getRadioValue() {
+      return this.form.sex;
+    },
+    getSelectedValue() {
+      return this.form.selected;
+    },
+    getCheckBoxValue() {
+      return this.form.checked;
     }
   },
   components: {
