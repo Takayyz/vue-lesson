@@ -14,20 +14,21 @@
     <button @click="changeTextSize">Large</button>
     <hr>
     <child-component
-      v-show="isShow"
+      v-if="isShow"
     >
-      <template v-slot:head>
+      <template #head>
         <p>head slot</p>
       </template>
-      <template v-slot:default>
+      <template #default>
         <p>main slot</p>
         <p>main slot2</p>
       </template>
-      <template v-slot:foot>
+      <template #foot>
         <p>foot slot</p>
       </template>
       <!-- <span>こっちは勝手に追加</span> -->
     </child-component>
+    <button @click="toggleShow">toggle isShow</button>
     <hr>
     <p v-if="id === 1">1</p>
    <template v-else-if="id === 2">
@@ -105,6 +106,12 @@
       </template>
       <button @click="updateText">update text</button>
     </ul>
+    <article v-for="post in posts"
+      :key="$uuid.v4()"
+    >
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.body }}</p>
+    </article>
   </div>
 </template>
 
@@ -112,8 +119,34 @@
 import ChildComponent from 'Components/ChildComponent';
 import Counter from 'Components/Counter';
 import InputText from 'Components/InputText';
+import axios from 'axios';
 
 export default {
+  beforeCreate() {
+    console.log('beforeCreate');
+    // console.log(this.leads); // undefined
+  },
+  created() {
+    console.log('created');
+    console.log(this.posts);
+    axios.get('/data.json').then(res => {
+      this.posts = res.data.posts;
+    });
+  },
+  beforeMount() {
+    console.log('beforeMount');
+    console.log(this.$el); // undefined
+  },
+  mounted() {
+    console.log('mounted');
+    console.log(this.$el);
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate');
+  },
+  updated() {
+    console.log('updated');
+  },
   data() {
     return {
       leads: {
@@ -148,6 +181,8 @@ export default {
         checked: false,
       },
       categories: ['JavaScript', 'jQuery'],
+      posts: [],
+
     }
   },
   methods: {
@@ -181,6 +216,9 @@ export default {
       this.classObj = Object.assign({}, this.classObj, {
         'is-large': true,
       });
+    },
+    toggleShow() {
+      this.isShow = !this.isShow;
     }
   },
   watch: {
