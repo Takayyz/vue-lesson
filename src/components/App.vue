@@ -53,10 +53,7 @@
         </child-component>
       </template>
       <hr>
-        <counter
-          :count="count"
-          @increment="incrementCount"
-        ></counter>
+      <counter></counter>
       <hr>
       <input type="text" v-model="inputText">
       <p>computed: {{ getUpperCaseText }}</p>
@@ -155,7 +152,7 @@ export default {
       },
       isShow: true,
       id: 2,
-      count: 0,
+      // count: 0, // store管理のため削除
       inputText: '',
       classObj: {
         'is-green': true,
